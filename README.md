@@ -40,7 +40,7 @@ Test-scale proof run (1 USDC bonds), Oct 15 2026 — full-size run follows. Brie
 - **submitWork** — applicant records the work hash before the deadline: https://explorer.arc.io/tx/0x12b8f7825da81614e568f3f8414086cfe0dd7fbb8ac6ee34e3935726949ae224
 - **clientAction (Hired)** — bond returned to the client in full: https://explorer.arc.io/tx/0x13f210dff88066269819ec3095152ebd40f690824f2e665b632f5acfbb01f540
 
-Brief #2 is a clearly titled onchain **SIMULATION** of the ghost path (same contract, team-operated on both sides, disclosed here and in its onchain title) demonstrating the `claimGhost` forfeiture; its claim transaction will be added here after it executes.
+Brief #2 is a clearly titled onchain **SIMULATION** of the ghost path (same contract, team-operated on both sides, disclosed here and in its onchain title) demonstrating the `claimGhost` forfeiture — claim tx: https://explorer.arc.io/tx/0x8872dfa023aa0f4dc8a6005c4b7a2bc129670982978fa70ee80e518a86a452d6 (applicant received the 1 USDC bond).
 
 ## How it was built
 
