@@ -1,0 +1,663 @@
+{
+  "contractAddress": "0xe9a06cdba9078aaa6dfa3b2525b06127cc497b56",
+  "network": "ARC-TESTNET",
+  "deployerWalletId": "3c2464b2-8369-52e2-a782-800bbeca5396",
+  "contract_code_path": "/home/user/app/contracts/BriefBond.sol",
+  "contract_compiled_code_path": "/home/user/app/contracts/out/BriefBond.sol/BriefBond.json",
+  "contract_network_and_links": {
+    "Arc Testnet": "https://explorer.testnet.arc.io/address/0xe9a06cdba9078aaa6dfa3b2525b06127cc497b56"
+  },
+  "contract_deployments": [
+    {
+      "chain": "Arc Testnet",
+      "address": "0xe9a06cdba9078aaa6dfa3b2525b06127cc497b56",
+      "explorerUrl": "https://explorer.testnet.arc.io/address/0xe9a06cdba9078aaa6dfa3b2525b06127cc497b56",
+      "txHash": "0x0497362e01c55f32cc8be5b587b519b58745fee9255bf543085c383f19ca0636",
+      "deployedAt": "2026-10-15T18:38:33.969Z"
+    }
+  ],
+  "abi": [
+    {
+      "type": "constructor",
+      "inputs": [],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "function",
+      "name": "CLAIM_WINDOW",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "MAX_BOND",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "MAX_DURATION",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "MAX_TITLE_BYTES",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "MIN_BOND",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "MIN_DURATION",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "briefs",
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "client",
+          "type": "address",
+          "internalType": "address"
+        },
+        {
+          "name": "applicant",
+          "type": "address",
+          "internalType": "address"
+        },
+        {
+          "name": "bond",
+          "type": "uint256",
+          "internalType": "uint256"
+        },
+        {
+          "name": "deadline",
+          "type": "uint256",
+          "internalType": "uint256"
+        },
+        {
+          "name": "briefHash",
+          "type": "bytes32",
+          "internalType": "bytes32"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "internalType": "string"
+        },
+        {
+          "name": "workHash",
+          "type": "bytes32",
+          "internalType": "bytes32"
+        },
+        {
+          "name": "workSubmittedAt",
+          "type": "uint256",
+          "internalType": "uint256"
+        },
+        {
+          "name": "status",
+          "type": "uint8",
+          "internalType": "enum BriefBond.BriefStatus"
+        },
+        {
+          "name": "action",
+          "type": "uint8",
+          "internalType": "enum BriefBond.ClientAction"
+        },
+        {
+          "name": "actionRecorded",
+          "type": "bool",
+          "internalType": "bool"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "claimGhost",
+      "inputs": [
+        {
+          "name": "briefId",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "outputs": [],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "function",
+      "name": "clientAction",
+      "inputs": [
+        {
+          "name": "briefId",
+          "type": "uint256",
+          "internalType": "uint256"
+        },
+        {
+          "name": "action",
+          "type": "uint8",
+          "internalType": "enum BriefBond.ClientAction"
+        }
+      ],
+      "outputs": [],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "function",
+      "name": "getBrief",
+      "inputs": [
+        {
+          "name": "briefId",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "tuple",
+          "internalType": "struct BriefBond.Brief",
+          "components": [
+            {
+              "name": "client",
+              "type": "address",
+              "internalType": "address"
+            },
+            {
+              "name": "applicant",
+              "type": "address",
+              "internalType": "address"
+            },
+            {
+              "name": "bond",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "deadline",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "briefHash",
+              "type": "bytes32",
+              "internalType": "bytes32"
+            },
+            {
+              "name": "title",
+              "type": "string",
+              "internalType": "string"
+            },
+            {
+              "name": "workHash",
+              "type": "bytes32",
+              "internalType": "bytes32"
+            },
+            {
+              "name": "workSubmittedAt",
+              "type": "uint256",
+              "internalType": "uint256"
+            },
+            {
+              "name": "status",
+              "type": "uint8",
+              "internalType": "enum BriefBond.BriefStatus"
+            },
+            {
+              "name": "action",
+              "type": "uint8",
+              "internalType": "enum BriefBond.ClientAction"
+            },
+            {
+              "name": "actionRecorded",
+              "type": "bool",
+              "internalType": "bool"
+            }
+          ]
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "nextBriefId",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "postBrief",
+      "inputs": [
+        {
+          "name": "applicant",
+          "type": "address",
+          "internalType": "address"
+        },
+        {
+          "name": "deadline",
+          "type": "uint256",
+          "internalType": "uint256"
+        },
+        {
+          "name": "briefHash",
+          "type": "bytes32",
+          "internalType": "bytes32"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "internalType": "string"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "briefId",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "payable"
+    },
+    {
+      "type": "function",
+      "name": "reclaimStale",
+      "inputs": [
+        {
+          "name": "briefId",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "outputs": [],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "function",
+      "name": "submitWork",
+      "inputs": [
+        {
+          "name": "briefId",
+          "type": "uint256",
+          "internalType": "uint256"
+        },
+        {
+          "name": "workHash",
+          "type": "bytes32",
+          "internalType": "bytes32"
+        }
+      ],
+      "outputs": [],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "event",
+      "name": "BondForfeited",
+      "inputs": [
+        {
+          "name": "briefId",
+          "type": "uint256",
+          "indexed": true,
+          "internalType": "uint256"
+        },
+        {
+          "name": "applicant",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "indexed": false,
+          "internalType": "uint256"
+        }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "event",
+      "name": "BondReclaimed",
+      "inputs": [
+        {
+          "name": "briefId",
+          "type": "uint256",
+          "indexed": true,
+          "internalType": "uint256"
+        },
+        {
+          "name": "client",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "indexed": false,
+          "internalType": "uint256"
+        }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "event",
+      "name": "BondReturned",
+      "inputs": [
+        {
+          "name": "briefId",
+          "type": "uint256",
+          "indexed": true,
+          "internalType": "uint256"
+        },
+        {
+          "name": "client",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "indexed": false,
+          "internalType": "uint256"
+        }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "event",
+      "name": "BriefPosted",
+      "inputs": [
+        {
+          "name": "briefId",
+          "type": "uint256",
+          "indexed": true,
+          "internalType": "uint256"
+        },
+        {
+          "name": "client",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        },
+        {
+          "name": "applicant",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        },
+        {
+          "name": "bond",
+          "type": "uint256",
+          "indexed": false,
+          "internalType": "uint256"
+        },
+        {
+          "name": "deadline",
+          "type": "uint256",
+          "indexed": false,
+          "internalType": "uint256"
+        },
+        {
+          "name": "briefHash",
+          "type": "bytes32",
+          "indexed": false,
+          "internalType": "bytes32"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "indexed": false,
+          "internalType": "string"
+        }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "event",
+      "name": "BriefResolved",
+      "inputs": [
+        {
+          "name": "briefId",
+          "type": "uint256",
+          "indexed": true,
+          "internalType": "uint256"
+        },
+        {
+          "name": "client",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        },
+        {
+          "name": "action",
+          "type": "uint8",
+          "indexed": false,
+          "internalType": "enum BriefBond.ClientAction"
+        }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "event",
+      "name": "GhostClaimed",
+      "inputs": [
+        {
+          "name": "briefId",
+          "type": "uint256",
+          "indexed": true,
+          "internalType": "uint256"
+        },
+        {
+          "name": "applicant",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        },
+        {
+          "name": "workHash",
+          "type": "bytes32",
+          "indexed": false,
+          "internalType": "bytes32"
+        }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "event",
+      "name": "WorkSubmitted",
+      "inputs": [
+        {
+          "name": "briefId",
+          "type": "uint256",
+          "indexed": true,
+          "internalType": "uint256"
+        },
+        {
+          "name": "applicant",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        },
+        {
+          "name": "workHash",
+          "type": "bytes32",
+          "indexed": false,
+          "internalType": "bytes32"
+        },
+        {
+          "name": "submittedAt",
+          "type": "uint256",
+          "indexed": false,
+          "internalType": "uint256"
+        }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "error",
+      "name": "ApplicantIsClient",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "BondTooLarge",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "BondTooSmall",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "BriefNotFound",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "BriefNotOpen",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "ClaimWindowExpired",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "ClaimWindowNotExpired",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "DeadlineNotPassed",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "DeadlinePassed",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "DeadlineTooFar",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "DeadlineTooSoon",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "NoWorkRecorded",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "NotApplicant",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "NotClient",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "TitleEmpty",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "TitleTooLong",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "WorkSubmittedLate",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "ZeroApplicant",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "ZeroBriefHash",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "ZeroWorkHash",
+      "inputs": []
+    }
+  ]
+}
