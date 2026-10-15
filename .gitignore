@@ -1,0 +1,4 @@
+console.jsonl
+traces.jsonl
+dist/
+node_modules/
