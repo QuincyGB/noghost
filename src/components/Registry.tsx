@@ -1,8 +1,6 @@
-import { useState, useEffect, useCallback } from 'react'
-import { usePublicClient, useReadContract } from 'wagmi'
+import { useState, useEffect } from 'react'
+import { useReadContract } from 'wagmi'
 import { Loader2, ExternalLink, ChevronRight, ShieldAlert } from 'lucide-react'
-import { parseAbiItem } from 'viem'
-import type { Log } from 'viem'
 import {
   BRIEF_BOND_ABI,
   BRIEF_BOND_ADDRESS,
@@ -11,17 +9,7 @@ import {
   ClientActionLabel,
 } from '../contract'
 import { formatBond, shortAddress, formatCountdown } from '../utils'
-import { buildTxExplorerUrl, buildAddressExplorerUrl } from '@/onchain-facts'
-
-interface BriefEvent {
-  briefId: bigint
-  txHash: `0x${string}`
-  blockNumber: bigint
-}
-
-const BRIEF_POSTED_EVENT = parseAbiItem(
-  'event BriefPosted(uint256 indexed briefId, address indexed client, address indexed applicant, uint256 bond, uint256 deadline, bytes32 briefHash, string title)',
-)
+import { buildAddressExplorerUrl } from '@/onchain-facts'
 
 const STATUS_BG: Record<number, string> = {
   0: 'rgba(18,45,69,0.09)',
@@ -49,12 +37,12 @@ interface BriefRowData {
 }
 
 // ── Single row ──────────────────────────────────────────────────────────────
-function BriefRow({ event, onClick }: { event: BriefEvent; onClick: () => void }) {
+function BriefRow({ briefId, onClick }: { briefId: bigint; onClick: () => void }) {
   const { data: briefRaw } = useReadContract({
     address: BRIEF_BOND_ADDRESS,
     abi: BRIEF_BOND_ABI,
     functionName: 'getBrief',
-    args: [event.briefId],
+    args: [briefId],
     chainId: ARC_CHAIN_ID,
   })
 
@@ -90,7 +78,7 @@ function BriefRow({ event, onClick }: { event: BriefEvent; onClick: () => void }
           {/* ID + badge */}
           <div className="mb-0.5 flex flex-wrap items-center gap-2">
             <span className="text-xs tabular-nums" style={{ color: 'var(--muted)' }}>
-              #{event.briefId.toString()}
+              #{briefId.toString()}
             </span>
             <span
               className="rounded-lg px-2 py-0.5 text-xs font-semibold"
@@ -150,68 +138,35 @@ function BriefRow({ event, onClick }: { event: BriefEvent; onClick: () => void }
         </div>
       )}
 
-      {/* Posting tx link */}
-      <div className="mt-2 flex justify-end">
-        <a
-          href={buildTxExplorerUrl(ARC_CHAIN_ID, event.txHash)}
-          target="_blank"
-          rel="noreferrer"
-          onClick={(e) => e.stopPropagation()}
-          className="inline-flex items-center gap-1 text-xs"
-          style={{ color: 'var(--accent-hover)' }}
-        >
-          Posting tx <ExternalLink className="size-3" />
-        </a>
-      </div>
     </button>
   )
 }
 
 // ── Registry ────────────────────────────────────────────────────────────────
 export function Registry({ onBriefClick }: { onBriefClick: (id: bigint) => void }) {
-  const publicClient = usePublicClient({ chainId: ARC_CHAIN_ID })
-  const [events, setEvents]   = useState<BriefEvent[]>([])
-  const [fetched, setFetched] = useState(false)
-  const [errorMsg, setErrorMsg] = useState('')
-
-  const { data: nextBriefIdRaw } = useReadContract({
+  // Briefs are enumerated from the nextBriefId counter (IDs are sequential
+  // from 1) and each row reads its own getBrief — no eth_getLogs, which Arc's
+  // RPC caps at a 10,000-block range.
+  const {
+    data: nextBriefIdRaw,
+    isLoading: counterLoading,
+    error: counterError,
+  } = useReadContract({
     address: BRIEF_BOND_ADDRESS,
     abi: BRIEF_BOND_ABI,
     functionName: 'nextBriefId',
     chainId: ARC_CHAIN_ID,
   })
 
-  const loadLogs = useCallback(() => {
-    if (!publicClient || !BRIEF_BOND_ADDRESS) return
-
-    void publicClient
-      .getLogs({
-        address: BRIEF_BOND_ADDRESS,
-        event: BRIEF_POSTED_EVENT,
-        fromBlock: 0n,
-        toBlock: 'latest',
-      })
-      .then((logs: Log<bigint, number, false, typeof BRIEF_POSTED_EVENT>[]) => {
-        const parsed: BriefEvent[] = logs
-          .filter((l) => l.args?.briefId !== undefined)
-          .map((l) => ({
-            briefId:     l.args.briefId as bigint,
-            txHash:      l.transactionHash,
-            blockNumber: l.blockNumber ?? 0n,
-          }))
-          .sort((a, b) => (a.blockNumber > b.blockNumber ? -1 : 1))
-        setEvents(parsed)
-        setFetched(true)
-      })
-      .catch((e: unknown) => {
-        setErrorMsg('Could not load briefs: ' + (e as Error).message)
-        setFetched(true)
-      })
-  }, [publicClient])
-
-  useEffect(() => { loadLogs() }, [loadLogs])
+  const fetched = !counterLoading
+  const errorMsg = counterError
+    ? 'Could not load briefs: ' + counterError.message
+    : ''
 
   const totalBriefs = nextBriefIdRaw && nextBriefIdRaw > 0n ? Number(nextBriefIdRaw) - 1 : 0
+  const briefIds: bigint[] = Array.from({ length: totalBriefs }, (_, i) =>
+    BigInt(totalBriefs - i),
+  )
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-8">
@@ -257,7 +212,7 @@ export function Registry({ onBriefClick }: { onBriefClick: (id: bigint) => void 
         <div className="flex items-center justify-center py-16">
           <Loader2 className="size-6 animate-spin" style={{ color: 'var(--muted)' }} />
         </div>
-      ) : events.length === 0 ? (
+      ) : briefIds.length === 0 ? (
         // ── Empty state ──────────────────────────────────────────────────────
         <div className="rounded-3xl p-12 text-center" style={{ background: 'var(--surface-strong)', border: '1px solid var(--border)' }}>
           <div
@@ -276,11 +231,11 @@ export function Registry({ onBriefClick }: { onBriefClick: (id: bigint) => void 
         </div>
       ) : (
         <div className="flex flex-col gap-3">
-          {events.map((ev) => (
+          {briefIds.map((id) => (
             <BriefRow
-              key={ev.briefId.toString()}
-              event={ev}
-              onClick={() => onBriefClick(ev.briefId)}
+              key={id.toString()}
+              briefId={id}
+              onClick={() => onBriefClick(id)}
             />
           ))}
         </div>

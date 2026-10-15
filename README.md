@@ -28,7 +28,7 @@ Edge case: if nobody ever claims, the client can reclaim the bond after deadline
 | | |
 |---|---|
 | **Arc Mainnet** (chain 5042) | BriefBond `0x3b15d9CE9dF3FDdD073BEb58F5baF6FD277E386F` — [explorer](https://explorer.arc.io/address/0x3b15d9CE9dF3FDdD073BEb58F5baF6FD277E386F) |
-| **Live app** | https://quincybg.github.io/noghost/ |
+| **Live app** | https://noghost-pied.vercel.app |
 | **Arc Studio project** | https://studio.arc.io/app/1547a3da-6adc-4401-9fa2-2468441dd891 |
 | **Studio testnet deployment** (Arc Testnet 5042002) | `0xe9a06cdba9078aaa6dfa3b2525b06127cc497b56` |
 
