@@ -34,7 +34,7 @@ export function Header({ view, onNav }: HeaderProps) {
               NoGhost Bond
             </div>
             <div className="text-xs leading-tight" style={{ color: 'var(--muted)' }}>
-              the client posts the bond
+              freelance briefs, minus the ghosting
             </div>
           </div>
         </button>
@@ -67,7 +67,7 @@ export function Header({ view, onNav }: HeaderProps) {
         className="border-t px-4 py-1.5 text-center text-xs"
         style={{ borderColor: 'var(--border)', color: 'var(--muted)' }}
       >
-        Act before the deadline and the bond comes back. Ghost, and the applicant who submitted work claims it.
+        A client locks USDC when they ask for sample work. Reply by the deadline and it all comes back. Disappear, and the freelancer who did the work claims it.
       </div>
     </header>
   )
