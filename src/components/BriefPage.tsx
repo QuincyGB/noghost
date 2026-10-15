@@ -10,7 +10,7 @@ import { Loader2, ExternalLink, ChevronLeft, Clock, CheckCircle2, AlertCircle } 
 import {
   BRIEF_BOND_ABI,
   BRIEF_BOND_ADDRESS,
-  ARC_TESTNET_CHAIN_ID,
+  ARC_CHAIN_ID,
   BriefStatusLabel,
   ClientActionLabel,
   parseContractError,
@@ -47,7 +47,7 @@ const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 function TxLink({ hash }: { hash: `0x${string}` }) {
   return (
     <a
-      href={buildTxExplorerUrl(ARC_TESTNET_CHAIN_ID, hash)}
+      href={buildTxExplorerUrl(ARC_CHAIN_ID, hash)}
       target="_blank"
       rel="noreferrer"
       className="inline-flex items-center gap-1 text-xs mt-1 font-medium"
@@ -63,7 +63,7 @@ function AddrLink({ addr, label }: { addr: string; label: string }) {
     <div className="rounded-2xl p-3" style={{ background: 'var(--surface-muted)' }}>
       <div className="mb-0.5 text-xs" style={{ color: 'var(--muted)' }}>{label}</div>
       <a
-        href={buildAddressExplorerUrl(ARC_TESTNET_CHAIN_ID, addr)}
+        href={buildAddressExplorerUrl(ARC_CHAIN_ID, addr)}
         target="_blank"
         rel="noreferrer"
         className="mono flex items-center gap-1 text-xs font-medium"
@@ -135,7 +135,7 @@ export function BriefPage({ briefId, onBack }: BriefPageProps) {
     abi: BRIEF_BOND_ABI,
     functionName: 'getBrief',
     args: [briefId],
-    chainId: ARC_TESTNET_CHAIN_ID,
+    chainId: ARC_CHAIN_ID,
   })
 
   const brief = briefRaw
@@ -158,7 +158,7 @@ export function BriefPage({ briefId, onBack }: BriefPageProps) {
     return () => clearTimeout(t)
   }, [isSuccess, refetch, resetWrite])
 
-  const wrongChain      = isConnected && chainId !== ARC_TESTNET_CHAIN_ID
+  const wrongChain      = isConnected && chainId !== ARC_CHAIN_ID
   const deadlineNum     = brief ? Number(brief.deadline) : 0
   const isDeadlinePassed     = brief ? nowSecs >= deadlineNum : false
   const isClaimWindowPassed  = brief ? nowSecs > deadlineNum + CLAIM_WINDOW_SECS : false
@@ -172,7 +172,7 @@ export function BriefPage({ briefId, onBack }: BriefPageProps) {
     (fn: () => void) => {
       setActionError('')
       if (!isConnected) { setActionError('Connect your wallet first.'); return }
-      if (wrongChain)   { switchChain({ chainId: ARC_TESTNET_CHAIN_ID }); return }
+      if (wrongChain)   { switchChain({ chainId: ARC_CHAIN_ID }); return }
       fn()
     },
     [isConnected, wrongChain, switchChain],
@@ -181,7 +181,7 @@ export function BriefPage({ briefId, onBack }: BriefPageProps) {
   function handleClientAction(action: number) {
     doWrite(() =>
       writeContract(
-        { address: BRIEF_BOND_ADDRESS, abi: BRIEF_BOND_ABI, functionName: 'clientAction', args: [briefId, action], chainId: ARC_TESTNET_CHAIN_ID },
+        { address: BRIEF_BOND_ADDRESS, abi: BRIEF_BOND_ABI, functionName: 'clientAction', args: [briefId, action], chainId: ARC_CHAIN_ID },
         { onError: (e) => setActionError(parseContractError(e)), onSuccess: (h) => setConfirmedHash(h) },
       ),
     )
@@ -192,7 +192,7 @@ export function BriefPage({ briefId, onBack }: BriefPageProps) {
     if (!workText.trim()) { setActionError('Work text is required.'); return }
     doWrite(() =>
       writeContract(
-        { address: BRIEF_BOND_ADDRESS, abi: BRIEF_BOND_ABI, functionName: 'submitWork', args: [briefId, hashText(workText.trim())], chainId: ARC_TESTNET_CHAIN_ID },
+        { address: BRIEF_BOND_ADDRESS, abi: BRIEF_BOND_ABI, functionName: 'submitWork', args: [briefId, hashText(workText.trim())], chainId: ARC_CHAIN_ID },
         { onError: (e) => setActionError(parseContractError(e)), onSuccess: (h) => setConfirmedHash(h) },
       ),
     )
@@ -201,7 +201,7 @@ export function BriefPage({ briefId, onBack }: BriefPageProps) {
   function handleClaimGhost() {
     doWrite(() =>
       writeContract(
-        { address: BRIEF_BOND_ADDRESS, abi: BRIEF_BOND_ABI, functionName: 'claimGhost', args: [briefId], chainId: ARC_TESTNET_CHAIN_ID },
+        { address: BRIEF_BOND_ADDRESS, abi: BRIEF_BOND_ABI, functionName: 'claimGhost', args: [briefId], chainId: ARC_CHAIN_ID },
         { onError: (e) => setActionError(parseContractError(e)), onSuccess: (h) => setConfirmedHash(h) },
       ),
     )
@@ -210,7 +210,7 @@ export function BriefPage({ briefId, onBack }: BriefPageProps) {
   function handleReclaimStale() {
     doWrite(() =>
       writeContract(
-        { address: BRIEF_BOND_ADDRESS, abi: BRIEF_BOND_ABI, functionName: 'reclaimStale', args: [briefId], chainId: ARC_TESTNET_CHAIN_ID },
+        { address: BRIEF_BOND_ADDRESS, abi: BRIEF_BOND_ABI, functionName: 'reclaimStale', args: [briefId], chainId: ARC_CHAIN_ID },
         { onError: (e) => setActionError(parseContractError(e)), onSuccess: (h) => setConfirmedHash(h) },
       ),
     )
@@ -382,7 +382,7 @@ export function BriefPage({ briefId, onBack }: BriefPageProps) {
       ) : wrongChain ? (
         <button
           disabled={isSwitching}
-          onClick={() => switchChain({ chainId: ARC_TESTNET_CHAIN_ID })}
+          onClick={() => switchChain({ chainId: ARC_CHAIN_ID })}
           className="w-full rounded-2xl py-3.5 text-sm font-semibold disabled:opacity-40"
           style={{ background: 'var(--accent)', color: '#fff' }}
         >

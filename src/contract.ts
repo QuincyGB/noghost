@@ -1,10 +1,12 @@
 /**
  * BriefBond contract config.
- * Address is set after deploy — wired in at deploy time.
+ * Defaults to the Arc mainnet deployment; override with VITE_CONTRACT_ADDRESS
+ * (see .env.example).
  */
-export const BRIEF_BOND_ADDRESS = (import.meta.env.VITE_CONTRACT_ADDRESS ?? '') as `0x${string}`
+export const BRIEF_BOND_ADDRESS = (import.meta.env.VITE_CONTRACT_ADDRESS ??
+  '0x3b15d9CE9dF3FDdD073BEb58F5baF6FD277E386F') as `0x${string}`
 
-export const ARC_TESTNET_CHAIN_ID = 5042002
+export const ARC_CHAIN_ID = 5042
 
 export const BRIEF_BOND_ABI = [
   // constants

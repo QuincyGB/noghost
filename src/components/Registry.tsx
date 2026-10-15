@@ -6,7 +6,7 @@ import type { Log } from 'viem'
 import {
   BRIEF_BOND_ABI,
   BRIEF_BOND_ADDRESS,
-  ARC_TESTNET_CHAIN_ID,
+  ARC_CHAIN_ID,
   BriefStatusLabel,
   ClientActionLabel,
 } from '../contract'
@@ -55,7 +55,7 @@ function BriefRow({ event, onClick }: { event: BriefEvent; onClick: () => void }
     abi: BRIEF_BOND_ABI,
     functionName: 'getBrief',
     args: [event.briefId],
-    chainId: ARC_TESTNET_CHAIN_ID,
+    chainId: ARC_CHAIN_ID,
   })
 
   // Live clock for countdown — updates every 10 s in the registry for perf
@@ -111,7 +111,7 @@ function BriefRow({ event, onClick }: { event: BriefEvent; onClick: () => void }
               {formatBond(brief.bond)} USDC
             </span>
             <a
-              href={buildAddressExplorerUrl(ARC_TESTNET_CHAIN_ID, brief.client)}
+              href={buildAddressExplorerUrl(ARC_CHAIN_ID, brief.client)}
               target="_blank"
               rel="noreferrer"
               onClick={(e) => e.stopPropagation()}
@@ -153,7 +153,7 @@ function BriefRow({ event, onClick }: { event: BriefEvent; onClick: () => void }
       {/* Posting tx link */}
       <div className="mt-2 flex justify-end">
         <a
-          href={buildTxExplorerUrl(ARC_TESTNET_CHAIN_ID, event.txHash)}
+          href={buildTxExplorerUrl(ARC_CHAIN_ID, event.txHash)}
           target="_blank"
           rel="noreferrer"
           onClick={(e) => e.stopPropagation()}
@@ -169,7 +169,7 @@ function BriefRow({ event, onClick }: { event: BriefEvent; onClick: () => void }
 
 // ── Registry ────────────────────────────────────────────────────────────────
 export function Registry({ onBriefClick }: { onBriefClick: (id: bigint) => void }) {
-  const publicClient = usePublicClient({ chainId: ARC_TESTNET_CHAIN_ID })
+  const publicClient = usePublicClient({ chainId: ARC_CHAIN_ID })
   const [events, setEvents]   = useState<BriefEvent[]>([])
   const [fetched, setFetched] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
@@ -178,7 +178,7 @@ export function Registry({ onBriefClick }: { onBriefClick: (id: bigint) => void 
     address: BRIEF_BOND_ADDRESS,
     abi: BRIEF_BOND_ABI,
     functionName: 'nextBriefId',
-    chainId: ARC_TESTNET_CHAIN_ID,
+    chainId: ARC_CHAIN_ID,
   })
 
   const loadLogs = useCallback(() => {
@@ -227,7 +227,7 @@ export function Registry({ onBriefClick }: { onBriefClick: (id: bigint) => void 
         </div>
         {BRIEF_BOND_ADDRESS && (
           <a
-            href={buildAddressExplorerUrl(ARC_TESTNET_CHAIN_ID, BRIEF_BOND_ADDRESS)}
+            href={buildAddressExplorerUrl(ARC_CHAIN_ID, BRIEF_BOND_ADDRESS)}
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-1 text-xs font-medium"

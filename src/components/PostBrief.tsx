@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useAccount, useWriteContract, useWaitForTransactionReceipt, useSwitchChain } from 'wagmi'
 import { Loader2, ExternalLink, Info, CheckCircle2 } from 'lucide-react'
-import { BRIEF_BOND_ABI, BRIEF_BOND_ADDRESS, ARC_TESTNET_CHAIN_ID, parseContractError } from '../contract'
+import { BRIEF_BOND_ABI, BRIEF_BOND_ADDRESS, ARC_CHAIN_ID, parseContractError } from '../contract'
 import { hashText, parseBond } from '../utils'
 import { buildTxExplorerUrl } from '@/onchain-facts'
 
@@ -40,7 +40,7 @@ export function PostBrief({ onBriefPosted }: { onBriefPosted: (id: bigint) => vo
 
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash: txHash })
 
-  const wrongChain  = isConnected && chainId !== ARC_TESTNET_CHAIN_ID
+  const wrongChain  = isConnected && chainId !== ARC_CHAIN_ID
   const titleBytes  = new TextEncoder().encode(title).length
   const titleTooLong = titleBytes > 120
 
@@ -81,7 +81,7 @@ export function PostBrief({ onBriefPosted }: { onBriefPosted: (id: bigint) => vo
         functionName: 'postBrief',
         args: [applicant as `0x${string}`, deadline, briefHash, title],
         value: bondRaw,
-        chainId: ARC_TESTNET_CHAIN_ID,
+        chainId: ARC_CHAIN_ID,
       },
       {
         onError: (e) => setFormError(parseContractError(e)),
@@ -91,7 +91,7 @@ export function PostBrief({ onBriefPosted }: { onBriefPosted: (id: bigint) => vo
 
   // ── Success state ──────────────────────────────────────────────────────────
   if (isSuccess && txHash) {
-    const txUrl = buildTxExplorerUrl(ARC_TESTNET_CHAIN_ID, txHash)
+    const txUrl = buildTxExplorerUrl(ARC_CHAIN_ID, txHash)
     return (
       <div className="mx-auto max-w-lg px-4 py-10">
         <div
@@ -316,7 +316,7 @@ export function PostBrief({ onBriefPosted }: { onBriefPosted: (id: bigint) => vo
           <button
             type="button"
             disabled={isSwitching}
-            onClick={() => switchChain({ chainId: ARC_TESTNET_CHAIN_ID })}
+            onClick={() => switchChain({ chainId: ARC_CHAIN_ID })}
             className="w-full rounded-2xl py-3.5 text-sm font-semibold transition-all hover:brightness-110 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-40"
             style={{ background: 'var(--accent)', color: '#fff' }}
           >
